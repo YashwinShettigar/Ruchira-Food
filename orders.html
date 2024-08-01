@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha384-..(hash)..">
+    <style>
+        *{
+            font-family: Urbanist, sans-serif;
+        }
+        body{
+            background: linear-gradient(to right, #fdfdfd90, #ffd1e890, #c3b3ff90);
+        }
+
+        .logo img {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            height: 400px;
+            background: url('logo.png') no-repeat center center;
+            background-size: contain;
+            opacity: 0.3; 
+            transform: translate(-50%, -50%);
+        }
+
+        .ordered-items {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 20px;
+            border: 5px solid black;
+            border-radius: 10px;
+        }
+
+        .ordered-item {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .remove-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #submit_button {
+            position: relative;
+            margin-top: 20px;
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            left:310px;
+        }
+        h1{
+            text-align: center;
+        }
+        #total_price{
+            text-align: center;
+            font-size:x-large;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="img/logo.png" alt="Logo">
+    </div>
+    <h1>Ordered Items</h1>
+    <div class="ordered-items" id="ordered_items_container">
+    </div>
+    <div id="total_price"></div>
+    <form id="order_form">
+        <button type="submit" id="submit_button">Submit Order</button>
+    </form>
+
+
+    <script>
+        // to retrive session fromm s.memory
+        var orderedItems = sessionStorage.getItem('orderedItems');
+        if (orderedItems) {
+            orderedItems = JSON.parse(orderedItems);
+
+            // continer div to add items
+            var container = document.getElementById('ordered_items_container');
+
+            var totalPrice = 0;
+
+        
+            orderedItems.forEach(function(item, index) {  // to get all the items from order s.memory
+                var orderedItemDiv = document.createElement('div');
+                orderedItemDiv.classList.add('ordered-item');
+                orderedItemDiv.innerHTML = '<div><p><strong>Name:</strong> ' + item.name + '</p>' +
+                                           '<p><strong>Price:</strong> ' + item.price + '</p></div>' +
+                                           '<button class="remove-btn" onclick="removeItem(' + index + ')">Remove</button>';
+                container.appendChild(orderedItemDiv);
+
+                //ttotal cal
+                totalPrice += item.price;
+            });
+
+            // diplay total
+            var totalPriceDiv = document.getElementById('total_price');
+            totalPriceDiv.innerHTML = '<p><strong>Total Price:</strong> ' + totalPrice + '</p>';
+        } else {
+            // if no item selected shoiw this message 
+            var noItemsMessage = document.createElement('p');
+            noItemsMessage.textContent = 'No items ordered yet.';
+            document.body.appendChild(noItemsMessage);
+        }
+
+        // remove btn
+        function removeItem(index) {
+            var orderedItems = sessionStorage.getItem('orderedItems');
+            if (orderedItems) {
+                orderedItems = JSON.parse(orderedItems);
+
+            //   remove give item
+                orderedItems.splice(index, 1);
+
+
+
+
+                // after removal session upate 
+                sessionStorage.setItem('orderedItems', JSON.stringify(orderedItems));
+                location.reload();
+            }
+        }
+
+        // Submit btn
+        document.getElementById('order_form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var orderedItems = sessionStorage.getItem('orderedItems');
+            if (orderedItems) {
+                // sending item to server
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'submitorder.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        alert('Order submitted successfully!');
+                        sessionStorage.removeItem('orderedItems');// if not workinf change
+                        window.location.href = 'menu.html';// redirection not woring chcek
+                    } else {
+                        alert('Failed to submit order. Please try again later.');
+                    }
+                };
+                xhr.send(orderedItems);
+            } else {
+                alert('No items to submit.');
+            }
+        });
+    </script>
+</body>
+</html>

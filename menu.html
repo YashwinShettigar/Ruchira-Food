@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MENU</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Urbanist, sans-serif;
+            color: #444;
+            box-sizing: border-box;
+        }
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            background: linear-gradient(to right, #fdfdfd, #ffd1e8, #c3b3ff);
+        }
+
+        h1 {
+            text-align: center;
+            color: black;
+            padding: 20px;
+        }
+
+        h2{
+            text-align: center;
+        }
+
+        nav {
+            background-color: lightGrey;
+            display: grid;
+            place-items: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+
+        }
+
+        nav ul a {
+            display: inline-block;
+            padding: 10px;
+            padding-left: 20px;
+            text-decoration: none;
+            color: #000;
+            transition: 0.2s ease-in;
+            font-size: 18px;
+
+        }
+
+        ul {
+            text-align: center;
+
+        }
+
+        .items {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 30px 60px;
+            grid-column-gap: 20px;
+            grid-row-gap: 30px;
+            text-align: center;
+        }
+
+        .item img {
+            width: 60%;
+            height: 250px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: 0.4s ease;
+            border-radius: 15px;
+        }
+
+        .item img:hover {
+            transform: scale(1.04);
+        }
+
+        .item h4 {
+            padding: 5px;
+            text-align: center;
+            background: transparent;
+            font-family: black;
+        }
+
+        .item button {
+            color: #fff;
+            width: 50%;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 15px;
+            margin: 10px 0;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            background-color: #1c8adb;
+        }
+
+        button {
+            color: #fff;
+            text-transform: uppercase;
+            width: 140%;
+            padding: 10px;
+            border-radius: 20px;
+            font-size: 15px;
+            margin: 10px 0;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            background-color: red;
+        }
+
+        .item button:hover {
+            transform: scale(1.04);
+        }
+
+
+        /* oder icon d style  */
+        #order_icon {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 5vh;
+
+        }
+
+        #order_count {
+            position: absolute;
+            top: -20px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 3px;
+            font-size: 3px;
+        }
+
+
+        #order_icon span {
+            font-size: 2vh;
+            background-color: red;
+            height: 20px;
+            width: 20px;
+        }
+
+        /* to  make nav sticky */
+        nav {
+            background-color: lightGrey;
+            display: grid;
+            place-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 80px;
+
+        }
+
+        @media (max-width: 768px){
+            .item img{
+                width: 200px; 
+                height: 250px;
+            }
+
+        }
+    </style>
+<!-- to import icon  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha384-..(hash)..">
+        
+</head>
+
+<body>
+    <h1>MENU ITEMS</h1>
+
+    <nav>
+        <ul>
+            <a href="#"></a>
+            <a href="#morning">
+                <button class="button">MORNING</button>
+            </a>
+            <a href="#"></a>
+            <a href="#afternoon">
+                <button class="button">AFTERNOON</button>
+            </a>
+            <a href="orders.php"></a>
+            <a href="#evening">
+                <button class="button">EVENING</button>
+            </a>
+            <a href="#"></a>
+            <a href="#night">
+                <button class="button">NIGHT</button>
+            </a>
+            <!-- order icon -->
+            <a href="orders.html">
+                <li id="order_icon"><i class="fas fa-shopping-cart"></i> <span id="order_count">0</span></li>
+            </a>
+        </ul>
+    </nav>
+
+    <h2>Morning Menu</h2>
+    <section class="items" id="morning">
+        <div class="item">
+            <img src="img/4.jpg">
+            <h4>Masala Dosa.... RS.70</h4>
+            <!-- to pass item nsme and rs to s.memeory -->
+            <button class="button" onclick="incrementOrderCount('Masala Dosa', 70)">ORDER</button>
+        </div>
+        <div class="item">
+            <img src="img/57.jpg">
+            <h4>Poori Baaji....RS.40</h4>
+            <button class="button" onclick="incrementOrderCount('Poori Baaji', 40)">ORDER</button>
+        </div>
+        <div class="item">
+            <img src="img/paratha.jpg">
+            <h4>Paratha....RS.50</h4>
+            <button class="button" onclick="incrementOrderCount('Paratha', 50)">ORDER</button>
+        </div>
+    </section>
+    <h2>Afternoon Menu</h2>
+    <section class="items" id="afternoon">
+        <div class="item">
+            <img src="img/h.jpg">
+            <h4>Veg Meals....RS.80</h4>
+            <button class="button" onclick="incrementOrderCount('Veg Meals', 80)">ORDER</button>
+        </div>
+        <div class="item">
+            <img src="img/44.jpg">
+            <h4>Chicken Biriyani....RS.150</h4>
+            <button class="button" onclick="incrementOrderCount('Chicken Biriyani', 150)">ORDER</button>
+        </div>
+        <div class="item">
+            <img src="img/6.jpg">
+            <h4>Veg Biriyani....RS.120</h4>
+            <button class="button" onclick="incrementOrderCount('Veg Biriyani', 120)">ORDER</button>
+        </div>
+    </section>
+    <h2>Evening Menu</h2>
+    <section class="items" id="evening">
+        <div class="item">
+            <img src="img/evening (2).jpg">
+            <h4>Goli Baje.... RS.40</h4>
+            <!-- to pass item nsme and rs to s.memeory -->
+            <button class="button" onclick="incrementOrderCount('Goli Baje', 40)">ORDER</button>
+        </div>
+        <div class="item">
+            <img src="img/i.png">
+            <h4>Pasta....RS.60</h4>
+            <button class="button" onclick="incrementOrderCount('pasta', 60)">ORDER</button>
+        </div>
+        <div class="item">
+            <img src="img/pesarattu.jpg">
+            <h4>Pesarattu....RS.50</h4>
+            <button class="button" onclick="incrementOrderCount('Pesarattu', 50)">ORDER</button>
+        </div>
+    </section>
+    <h2>Night Menu</h2>
+    <section class="items" id="night">
+        <div class="item">
+            <img src="img/night (2).jpg">
+            <h4>Chicken Dum Biriyani....RS.190</h4>
+            <button class="button" onclick="incrementOrderCount('Chicken Dum Biriyani', 190)">ORDER</button>
+        </div>
+        <div class="item">
+            <img src="img/55.jpg">
+            <h4>Paneer kadai & paratha....RS.150</h4>
+            <button class="button" onclick="incrementOrderCount('Paneer kadai&paratha', 150)">ORDER</button>
+        </div>
+        <div class="item">
+            <img src="img/chickncurry.jpeg">
+            <h4>Chicken Meals....RS.110</h4>
+            <button class="button" onclick="incrementOrderCount('Chicken Meals', 110)">ORDER</button>
+        </div>
+    </section>
+    
+
+    <script>
+        var orderCount = 0;
+    
+        function incrementOrderCount(itemName, itemPrice) {
+            orderCount++;
+            document.getElementById("order_count").innerText = orderCount;
+    
+            // collecting datda from function
+            var orderedItem = { name: itemName, price: itemPrice };
+            
+            // storing data in s.memory 
+            if (sessionStorage.getItem('orderedItems') === null) {
+                sessionStorage.setItem('orderedItems', JSON.stringify([orderedItem]));
+            } else {
+                var existingItems = JSON.parse(sessionStorage.getItem('orderedItems'));
+                existingItems.push(orderedItem);
+                sessionStorage.setItem('orderedItems', JSON.stringify(existingItems));
+            }
+        }
+    </script>
+    
+</body>
+
+</html>
